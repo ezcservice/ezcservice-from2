@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Application Form</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f2f2f2;
+}
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 15px;
+}
+h2 {
+    text-align: center;
+    color: #333;
+}
+label {
+    font-size: 14px;
+    margin-top: 10px;
+    display: block;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 16px;
+    background: #25D366;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:disabled {
+    background: gray;
+}
+.loader {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #25D366;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h2>ණය අයදුම් පත්‍රය<br>Loan Application Form</h2>
+
+<form id="loanForm">
+
+<label>මුල් නම / First Name</label>
+<input type="text" id="fname" required>
+
+<label>අවසාන නම / Last Name</label>
+<input type="text" id="lname" required>
+
+<label>ජාතික හැදුනුම්පත් අංකය / NIC</label>
+<input type="text" id="nic" required>
+
+<label>උපන් දිනය / Date of Birth</label>
+<input type="date" id="dob" required>
+
+<h3>රැකියා තොරතුරු / Job Details</h3>
+
+<label>රැකියාව / Job</label>
+<input type="text" id="job">
+
+<label>මාසික ආදායම / Monthly Income</label>
+<input type="number" id="income">
+
+<label>තනතුර / Position</label>
+<input type="text" id="position">
+
+<h3>ණය අයදුම් විස්තර / Loan Details</h3>
+
+<label>ඉල්ලුම් කරන මුදල / Loan Amount</label>
+<input type="number" id="amount">
+
+<label>ගෙවීම් කාලය / Payment Period</label>
+<select id="period">
+<option>06 Months</option>
+<option>09 Months</option>
+<option>12 Months</option>
+<option>15 Months</option>
+<option>21 Months</option>
+<option>24 Months</option>
+</select>
+
+<label>ඔබ සිටින නගරය / City</label>
+<input type="text" id="city">
+
+<label>දිස්ත්‍රික්කය / District</label>
+<select id="district">
+<option>Colombo</option>
+<option>Gampaha</option>
+<option>Kandy</option>
+<option>Galle</option>
+<option>Kurunegala</option>
+<option>Jaffna</option>
+<option>Matara</option>
+<option>Anuradhapura</option>
+<option>Badulla</option>
+<option>Ratnapura</option>
+</select>
+
+<h3>ඇපකරුවන් / Guarantors</h3>
+
+<label>පළමු ඇපකරු නම</label>
+<input type="text" id="g1">
+
+<label>දුරකථන අංකය</label>
+<input type="tel" id="g1p">
+
+<label>දෙවන ඇපකරු නම</label>
+<input type="text" id="g2">
+
+<label>දුරකථන අංකය</label>
+<input type="tel" id="g2p">
+
+<h3>ගිණුම් විස්තර</h3>
+
+<label>Online Payment හැකියාව?</label>
+<select id="online">
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<label>ණය ලබා ගැනීමට හේතුව</label>
+<textarea id="reason"></textarea>
+
+<label>ගෙදර දුරකථන අංකය</label>
+<input type="tel" id="homephone">
+
+<h3>බැංකු තොරතුරු</h3>
+
+<label>බැංකුව</label>
+<select id="bank">
+<option>Bank of Ceylon</option>
+<option>People's Bank</option>
+<option>Commercial Bank</option>
+<option>Sampath Bank</option>
+<option>HNB</option>
+<option>NSB</option>
+</select>
+
+<label>ශාකාව / Branch</label>
+<input type="text" id="branch">
+
+<label>ගිණුම් අංකය</label>
+<input type="text" id="accno">
+
+<label>ගිණුම් හිමියාගේ නම</label>
+<input type="text" id="accname">
+
+<button type="submit">Submit</button>
+
+</form>
+
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <p>විස්තර යවමින් පවතී...</p>
+</div>
+
+<button id="whatsappBtn" style="display:none;">WhatsApp හරහා යවන්න</button>
+
+</div>
+
+<script>
+const WHATSAPP_NUMBER = "947XXXXXXXX"; // <-- change this
+
+document.getElementById("loanForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    document.getElementById("loader").style.display = "block";
+
+    setTimeout(()=>{
+        document.getElementById("loader").style.display = "none";
+        alert("ඔබගේ විස්තර Double Check කර WhatsApp හරහා යවන්න");
+        document.getElementById("whatsappBtn").style.display = "block";
+    },5000);
+});
+
+document.getElementById("whatsappBtn").onclick = function(){
+    let msg = `
+Loan Application Details
+Name: ${fname.value} ${lname.value}
+NIC: ${nic.value}
+DOB: ${dob.value}
+Job: ${job.value}
+Income: ${income.value}
+Amount: ${amount.value}
+Period: ${period.value}
+City: ${city.value}
+District: ${district.value}
+Guarantor 1: ${g1.value} (${g1p.value})
+Guarantor 2: ${g2.value} (${g2p.value})
+Bank: ${bank.value}
+Account No: ${accno.value}
+`;
+    let url = `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(msg);
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
