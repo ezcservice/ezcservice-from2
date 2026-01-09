@@ -1,193 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EZCredit Pvt Ltd</title>
+<title>Multi-Pay Loan Application</title>
 
 <style>
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: url("https://www.freepik.com/free-vector/realistic-magical-dreams-background_31682073.htm#fromView=keyword&page=1&position=18&uuid=742f63e4-45ed-49d8-bdb6-b54d853e8294&query=4k+wallpaper+animation") no-repeat center center fixed;
-    background-size: cover;
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f2f4f7;
 }
-.app{
-    background: rgba(255,255,255,0.95);
-    min-height: 100vh;
-    padding: 15px;
+.container{
+  max-width:480px;
+  margin:auto;
+  background:#fff;
+  min-height:100vh;
+  padding:15px;
 }
-header{
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
-    padding:10px;
-    color:#1a1a1a;
+h2{
+  font-size:16px;
+  margin-top:20px;
+  padding-bottom:5px;
+  border-bottom:2px solid #ddd;
 }
-.page{ display:none; }
-.page.active{ display:block; }
-
-label{ display:block; margin-top:10px; font-size:14px; }
-input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
+label{
+  font-size:13px;
+  display:block;
+  margin-top:10px;
+}
+input,select{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
 }
 button{
-    width:100%;
-    margin-top:20px;
-    padding:12px;
-    font-size:16px;
-    background:#25D366;
-    color:white;
-    border:none;
+  width:100%;
+  padding:12px;
+  margin-top:20px;
+  background:#0a7cff;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
 }
-
+#loading,#confirm{
+  display:none;
+  text-align:center;
+  padding:40px 20px;
+}
 .loader{
-    display:none;
-    text-align:center;
-    padding-top:40px;
-}
-.spinner{
-    width:45px;
-    height:45px;
-    border:5px solid #ddd;
-    border-top:5px solid #25D366;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:auto;
+  width:50px;
+  height:50px;
+  border:6px solid #eee;
+  border-top:6px solid #0a7cff;
+  border-radius:50%;
+  margin:auto;
+  animation:spin 1s linear infinite;
 }
 @keyframes spin{
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
 }
 </style>
 </head>
 
 <body>
-<div class="app">
+<div class="container">
 
-<header>EZCredit Pvt Ltd</header>
+<form id="loanForm">
 
-<div class="loader" id="loader">
-    <div class="spinner"></div>
-    <p>Loading...</p>
-</div>
-
-<!-- PAGE 1 -->
-<div class="page active" id="p1">
+<h2>Applicant Details | ඉල්ලුම්කරුගේ විස්තර</h2>
 <label>First Name / මුල් නම</label>
-<input id="fname">
+<input id="fname" required>
+
 <label>Last Name / අවසාන නම</label>
-<input id="lname">
+<input id="lname" required>
+
 <label>NIC</label>
-<input id="nic">
+<input id="nic" required>
+
 <label>Date of Birth</label>
 <input type="date" id="dob">
-<button onclick="nextPage(1)">Next</button>
-</div>
 
-<!-- PAGE 2 -->
-<div class="page" id="p2">
-<label>Job / රැකියාව</label>
-<input id="job">
-<label>Monthly Income</label>
-<input id="income">
-<label>Loan Amount</label>
-<input id="amount">
-<label>Payment Period</label>
+<h2>Employment Details | රැකියා තොරතුරු</h2>
+<input id="job" placeholder="Job">
+<input id="income" placeholder="Monthly Income">
+<input id="position" placeholder="Position">
+
+<h2>Loan Details | ණය විස්තර</h2>
+<input id="amount" placeholder="Loan Amount">
 <select id="period">
-<option>06 Months</option>
-<option>09 Months</option>
-<option>12 Months</option>
-<option>15 Months</option>
-<option>21 Months</option>
-<option>24 Months</option>
+  <option>06 Months</option>
+  <option>09 Months</option>
+  <option>12 Months</option>
+  <option>15 Months</option>
+  <option>21 Months</option>
+  <option>24 Months</option>
 </select>
-<button onclick="nextPage(2)">Next</button>
+
+<h2>City / District</h2>
+<input id="city" placeholder="City">
+<input id="district" placeholder="District">
+
+<h2>Guarantors</h2>
+<input id="g1name" placeholder="1st Guarantor Name">
+<input id="g1phone" placeholder="Phone">
+<input id="g2name" placeholder="2nd Guarantor Name">
+<input id="g2phone" placeholder="Phone">
+
+<h2>Online Payment</h2>
+<select id="online">
+  <option>Yes</option>
+  <option>No</option>
+</select>
+
+<h2>Reason & Phone</h2>
+<input id="reason" placeholder="Reason for Loan">
+<input id="homephone" placeholder="Home Phone">
+
+<h2>Bank Details</h2>
+<input id="bank" placeholder="Bank">
+<input id="branch" placeholder="Branch">
+<input id="accno" placeholder="Account Number">
+<input id="accname" placeholder="Account Holder Name">
+
+<button type="submit">Submit</button>
+</form>
+
+<div id="loading">
+  <div class="loader"></div>
+  <p>විස්තර යවමින් පවතී...</p>
 </div>
 
-<!-- PAGE 3 -->
-<div class="page" id="p3">
-<label>City</label>
-<input id="city">
-<label>District</label>
-<select id="district">
-<option>Colombo</option>
-<option>Gampaha</option>
-<option>Kandy</option>
-<option>Galle</option>
-<option>Kurunegala</option>
-<option>Jaffna</option>
-<option>Matara</option>
-</select>
-<label>Guarantor 1 Name</label>
-<input id="g1">
-<label>Guarantor 1 Phone</label>
-<input id="g1p">
-<button onclick="nextPage(3)">Next</button>
-</div>
-
-<!-- PAGE 4 -->
-<div class="page" id="p4">
-<label>Bank</label>
-<select id="bank">
-<option>Bank of Ceylon</option>
-<option>People's Bank</option>
-<option>Commercial Bank</option>
-<option>Sampath Bank</option>
-</select>
-<label>Account Number</label>
-<input id="acc">
-<label>Account Holder</label>
-<input id="accname">
-<button onclick="submitForm()">Submit</button>
+<div id="confirm">
+  <p>
+    ඔබගේ විස්තර double check කර ගැනීමට  
+    WhatsApp හරහා යැවීමට සිදු වේ
+  </p>
+  <button onclick="sendWhatsApp()">Next</button>
 </div>
 
 </div>
 
 <script>
-const whatsapp = "94742089009";
-let current = 1;
+function sendToGoogleForm(){
+  let url =
+  "https://docs.google.com/forms/d/e/FORM_ID/formResponse?" +
+  "entry.ENTRY_1="+encodeURIComponent(fname.value)+
+  "&entry.ENTRY_2="+encodeURIComponent(lname.value)+
+  "&entry.ENTRY_3="+encodeURIComponent(nic.value)+
+  "&entry.ENTRY_4="+encodeURIComponent(amount.value);
 
-function nextPage(p){
-    showLoader(3000,()=>{
-        document.getElementById("p"+p).classList.remove("active");
-        document.getElementById("p"+(p+1)).classList.add("active");
-    });
+  fetch(url,{mode:"no-cors"});
 }
 
-function showLoader(time,callback){
-    document.getElementById("loader").style.display="block";
-    setTimeout(()=>{
-        document.getElementById("loader").style.display="none";
-        callback();
-    },time);
+document.getElementById("loanForm").onsubmit=function(e){
+  e.preventDefault();
+  sendToGoogleForm();
+  loanForm.style.display="none";
+  loading.style.display="block";
+
+  setTimeout(()=>{
+    loading.style.display="none";
+    confirm.style.display="block";
+  },3000);
 }
 
-function submitForm(){
-    showLoader(5000,()=>{
-        let msg = `
-EZCredit Loan Application
+function sendWhatsApp(){
+  let msg =
+  "Loan Application\n"+
+  "Name: "+fname.value+" "+lname.value+"\n"+
+  "NIC: "+nic.value+"\n"+
+  "Loan: "+amount.value+"\n"+
+  "Period: "+period.value;
 
-Name: ${fname.value} ${lname.value}
-NIC: ${nic.value}
-DOB: ${dob.value}
-Job: ${job.value}
-Income: ${income.value}
-Loan: ${amount.value}
-Period: ${period.value}
-City: ${city.value}
-District: ${district.value}
-Guarantor: ${g1.value} (${g1p.value})
-Bank: ${bank.value}
-Account: ${acc.value}
-
-Please double check these details.
-`;
-        let url = "https://wa.me/94742089009"+whatsapp+"?text="+encodeURIComponent(msg);
-        window.open(url,"_blank");
-    });
+  let wa="https://wa.me/94742089009?text="+encodeURIComponent(msg);
+  window.open(wa,"_blank");
 }
 </script>
 
