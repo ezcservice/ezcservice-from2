@@ -3,130 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Multi-Pay Loan Application</title>
-
+<title>Loan Form Test</title>
 <style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f2f4f7;
-}
-.container{
-  max-width:480px;
-  margin:auto;
-  background:#fff;
-  min-height:100vh;
-  padding:15px;
-}
-h2{
-  font-size:16px;
-  margin-top:20px;
-  padding-bottom:5px;
-  border-bottom:2px solid #ddd;
-}
-label{
-  font-size:13px;
-  display:block;
-  margin-top:10px;
-}
-input,select{
-  width:100%;
-  padding:10px;
-  margin-top:5px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:14px;
-}
-button{
-  width:100%;
-  padding:12px;
-  margin-top:20px;
-  background:#0a7cff;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  font-size:16px;
-}
-#loading,#confirm{
-  display:none;
-  text-align:center;
-  padding:40px 20px;
-}
-.loader{
-  width:50px;
-  height:50px;
-  border:6px solid #eee;
-  border-top:6px solid #0a7cff;
-  border-radius:50%;
-  margin:auto;
-  animation:spin 1s linear infinite;
-}
-@keyframes spin{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(360deg)}
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f4f7;}
+.container{max-width:480px;margin:auto;background:#fff;min-height:100vh;padding:15px;}
+h2{font-size:16px;margin-top:20px;padding-bottom:5px;border-bottom:2px solid #ddd;}
+label{font-size:13px;display:block;margin-top:10px;}
+input{width:100%;padding:10px;margin-top:5px;border-radius:6px;border:1px solid #ccc;font-size:14px;}
+button{width:100%;padding:12px;margin-top:20px;background:#0a7cff;color:#fff;border:none;border-radius:8px;font-size:16px;}
+#loading,#confirm{display:none;text-align:center;padding:40px 20px;}
+.loader{width:50px;height:50px;border:6px solid #eee;border-top:6px solid #0a7cff;border-radius:50%;margin:auto;animation:spin 1s linear infinite;}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 </style>
 </head>
-
 <body>
+
 <div class="container">
 
 <form id="loanForm">
+<h2>Applicant Test | නම & NIC</h2>
+<label>Full Name / නම</label>
+<input id="fullname" required>
 
-<h2>Applicant Details | ඉල්ලුම්කරුගේ විස්තර</h2>
-<label>First Name / මුල් නම</label>
-<input id="fname" required>
-
-<label>Last Name / අවසාන නම</label>
-<input id="lname" required>
-
-<label>NIC</label>
+<label>NIC / හැදුනුම්පත් අංකය</label>
 <input id="nic" required>
-
-<label>Date of Birth</label>
-<input type="date" id="dob">
-
-<h2>Employment Details | රැකියා තොරතුරු</h2>
-<input id="job" placeholder="Job">
-<input id="income" placeholder="Monthly Income">
-<input id="position" placeholder="Position">
-
-<h2>Loan Details | ණය විස්තර</h2>
-<input id="amount" placeholder="Loan Amount">
-<select id="period">
-  <option>06 Months</option>
-  <option>09 Months</option>
-  <option>12 Months</option>
-  <option>15 Months</option>
-  <option>21 Months</option>
-  <option>24 Months</option>
-</select>
-
-<h2>City / District</h2>
-<input id="city" placeholder="City">
-<input id="district" placeholder="District">
-
-<h2>Guarantors</h2>
-<input id="g1name" placeholder="1st Guarantor Name">
-<input id="g1phone" placeholder="Phone">
-<input id="g2name" placeholder="2nd Guarantor Name">
-<input id="g2phone" placeholder="Phone">
-
-<h2>Online Payment</h2>
-<select id="online">
-  <option>Yes</option>
-  <option>No</option>
-</select>
-
-<h2>Reason & Phone</h2>
-<input id="reason" placeholder="Reason for Loan">
-<input id="homephone" placeholder="Home Phone">
-
-<h2>Bank Details</h2>
-<input id="bank" placeholder="Bank">
-<input id="branch" placeholder="Branch">
-<input id="accno" placeholder="Account Number">
-<input id="accname" placeholder="Account Holder Name">
 
 <button type="submit">Submit</button>
 </form>
@@ -147,13 +47,11 @@ button{
 </div>
 
 <script>
+// Replace FORM_ID and ENTRY_IDs with your pre-filled Google Form IDs
 function sendToGoogleForm(){
-  let url =
-  "https://docs.google.com/forms/d/e/FORM_ID/formResponse?" +
-  "entry.ENTRY_1="+encodeURIComponent(fname.value)+
-  "&entry.ENTRY_2="+encodeURIComponent(lname.value)+
-  "&entry.ENTRY_3="+encodeURIComponent(nic.value)+
-  "&entry.ENTRY_4="+encodeURIComponent(amount.value);
+  let url = "https://docs.google.com/forms/d/e/FORM_ID/formResponse?" +
+    "entry.ENTRY_FULLNAME="+encodeURIComponent(fullname.value)+
+    "&entry.ENTRY_NIC="+encodeURIComponent(nic.value);
 
   fetch(url,{mode:"no-cors"});
 }
@@ -161,6 +59,7 @@ function sendToGoogleForm(){
 document.getElementById("loanForm").onsubmit=function(e){
   e.preventDefault();
   sendToGoogleForm();
+
   loanForm.style.display="none";
   loading.style.display="block";
 
@@ -171,13 +70,7 @@ document.getElementById("loanForm").onsubmit=function(e){
 }
 
 function sendWhatsApp(){
-  let msg =
-  "Loan Application\n"+
-  "Name: "+fname.value+" "+lname.value+"\n"+
-  "NIC: "+nic.value+"\n"+
-  "Loan: "+amount.value+"\n"+
-  "Period: "+period.value;
-
+  let msg = "Loan Test\nName: "+fullname.value+"\nNIC: "+nic.value;
   let wa="https://wa.me/94742089009?text="+encodeURIComponent(msg);
   window.open(wa,"_blank");
 }
