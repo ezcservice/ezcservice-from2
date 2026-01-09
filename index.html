@@ -1,108 +1,101 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loan Application Form</title>
+<title>EZCredit Pvt Ltd</title>
 
 <style>
-body {
+body{
+    margin:0;
     font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f2f2f2;
+    background: url("https://i.imgur.com/8Km9tLL.gif") no-repeat center center fixed;
+    background-size: cover;
 }
-.container {
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-    background: #fff;
+.app{
+    background: rgba(255,255,255,0.95);
+    min-height: 100vh;
     padding: 15px;
 }
-h2 {
-    text-align: center;
-    color: #333;
+header{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    padding:10px;
+    color:#1a1a1a;
 }
-label {
-    font-size: 14px;
-    margin-top: 10px;
-    display: block;
+.page{ display:none; }
+.page.active{ display:block; }
+
+label{ display:block; margin-top:10px; font-size:14px; }
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
 }
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 14px;
+button{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    font-size:16px;
+    background:#25D366;
+    color:white;
+    border:none;
 }
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    font-size: 16px;
-    background: #25D366;
-    color: white;
-    border: none;
-    cursor: pointer;
+
+.loader{
+    display:none;
+    text-align:center;
+    padding-top:40px;
 }
-button:disabled {
-    background: gray;
+.spinner{
+    width:45px;
+    height:45px;
+    border:5px solid #ddd;
+    border-top:5px solid #25D366;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
 }
-.loader {
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-}
-.spinner {
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #25D366;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: auto;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
 }
 </style>
 </head>
 
 <body>
-<div class="container">
+<div class="app">
 
-<h2>ණය අයදුම් පත්‍රය<br>Loan Application Form</h2>
+<header>EZCredit Pvt Ltd</header>
 
-<form id="loanForm">
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
 
-<label>මුල් නම / First Name</label>
-<input type="text" id="fname" required>
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+<label>First Name / මුල් නම</label>
+<input id="fname">
+<label>Last Name / අවසාන නම</label>
+<input id="lname">
+<label>NIC</label>
+<input id="nic">
+<label>Date of Birth</label>
+<input type="date" id="dob">
+<button onclick="nextPage(1)">Next</button>
+</div>
 
-<label>අවසාන නම / Last Name</label>
-<input type="text" id="lname" required>
-
-<label>ජාතික හැදුනුම්පත් අංකය / NIC</label>
-<input type="text" id="nic" required>
-
-<label>උපන් දිනය / Date of Birth</label>
-<input type="date" id="dob" required>
-
-<h3>රැකියා තොරතුරු / Job Details</h3>
-
-<label>රැකියාව / Job</label>
-<input type="text" id="job">
-
-<label>මාසික ආදායම / Monthly Income</label>
-<input type="number" id="income">
-
-<label>තනතුර / Position</label>
-<input type="text" id="position">
-
-<h3>ණය අයදුම් විස්තර / Loan Details</h3>
-
-<label>ඉල්ලුම් කරන මුදල / Loan Amount</label>
-<input type="number" id="amount">
-
-<label>ගෙවීම් කාලය / Payment Period</label>
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+<label>Job / රැකියාව</label>
+<input id="job">
+<label>Monthly Income</label>
+<input id="income">
+<label>Loan Amount</label>
+<input id="amount">
+<label>Payment Period</label>
 <select id="period">
 <option>06 Months</option>
 <option>09 Months</option>
@@ -111,11 +104,14 @@ button:disabled {
 <option>21 Months</option>
 <option>24 Months</option>
 </select>
+<button onclick="nextPage(2)">Next</button>
+</div>
 
-<label>ඔබ සිටින නගරය / City</label>
-<input type="text" id="city">
-
-<label>දිස්ත්‍රික්කය / District</label>
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+<label>City</label>
+<input id="city">
+<label>District</label>
 <select id="district">
 <option>Colombo</option>
 <option>Gampaha</option>
@@ -124,106 +120,74 @@ button:disabled {
 <option>Kurunegala</option>
 <option>Jaffna</option>
 <option>Matara</option>
-<option>Anuradhapura</option>
-<option>Badulla</option>
-<option>Ratnapura</option>
 </select>
+<label>Guarantor 1 Name</label>
+<input id="g1">
+<label>Guarantor 1 Phone</label>
+<input id="g1p">
+<button onclick="nextPage(3)">Next</button>
+</div>
 
-<h3>ඇපකරුවන් / Guarantors</h3>
-
-<label>පළමු ඇපකරු නම</label>
-<input type="text" id="g1">
-
-<label>දුරකථන අංකය</label>
-<input type="tel" id="g1p">
-
-<label>දෙවන ඇපකරු නම</label>
-<input type="text" id="g2">
-
-<label>දුරකථන අංකය</label>
-<input type="tel" id="g2p">
-
-<h3>ගිණුම් විස්තර</h3>
-
-<label>Online Payment හැකියාව?</label>
-<select id="online">
-<option>Yes</option>
-<option>No</option>
-</select>
-
-<label>ණය ලබා ගැනීමට හේතුව</label>
-<textarea id="reason"></textarea>
-
-<label>ගෙදර දුරකථන අංකය</label>
-<input type="tel" id="homephone">
-
-<h3>බැංකු තොරතුරු</h3>
-
-<label>බැංකුව</label>
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+<label>Bank</label>
 <select id="bank">
 <option>Bank of Ceylon</option>
 <option>People's Bank</option>
 <option>Commercial Bank</option>
 <option>Sampath Bank</option>
-<option>HNB</option>
-<option>NSB</option>
 </select>
-
-<label>ශාකාව / Branch</label>
-<input type="text" id="branch">
-
-<label>ගිණුම් අංකය</label>
-<input type="text" id="accno">
-
-<label>ගිණුම් හිමියාගේ නම</label>
-<input type="text" id="accname">
-
-<button type="submit">Submit</button>
-
-</form>
-
-<div class="loader" id="loader">
-    <div class="spinner"></div>
-    <p>විස්තර යවමින් පවතී...</p>
+<label>Account Number</label>
+<input id="acc">
+<label>Account Holder</label>
+<input id="accname">
+<button onclick="submitForm()">Submit</button>
 </div>
-
-<button id="whatsappBtn" style="display:none;">WhatsApp හරහා යවන්න</button>
 
 </div>
 
 <script>
-const WHATSAPP_NUMBER = "947XXXXXXXX"; // <-- change this
+const whatsapp = "94742089009";
+let current = 1;
 
-document.getElementById("loanForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    document.getElementById("loader").style.display = "block";
+function nextPage(p){
+    showLoader(3000,()=>{
+        document.getElementById("p"+p).classList.remove("active");
+        document.getElementById("p"+(p+1)).classList.add("active");
+    });
+}
 
+function showLoader(time,callback){
+    document.getElementById("loader").style.display="block";
     setTimeout(()=>{
-        document.getElementById("loader").style.display = "none";
-        alert("ඔබගේ විස්තර Double Check කර WhatsApp හරහා යවන්න");
-        document.getElementById("whatsappBtn").style.display = "block";
-    },5000);
-});
+        document.getElementById("loader").style.display="none";
+        callback();
+    },time);
+}
 
-document.getElementById("whatsappBtn").onclick = function(){
-    let msg = `
-Loan Application Details
+function submitForm(){
+    showLoader(5000,()=>{
+        let msg = `
+EZCredit Loan Application
+
 Name: ${fname.value} ${lname.value}
 NIC: ${nic.value}
 DOB: ${dob.value}
 Job: ${job.value}
 Income: ${income.value}
-Amount: ${amount.value}
+Loan: ${amount.value}
 Period: ${period.value}
 City: ${city.value}
 District: ${district.value}
-Guarantor 1: ${g1.value} (${g1p.value})
-Guarantor 2: ${g2.value} (${g2p.value})
+Guarantor: ${g1.value} (${g1p.value})
 Bank: ${bank.value}
-Account No: ${accno.value}
+Account: ${acc.value}
+
+Please double check these details.
 `;
-    let url = `https://wa.me/${WHATSAPP_NUMBER}?text=` + encodeURIComponent(msg);
-    window.open(url, "_blank");
+        let url = "https://wa.me/"+whatsapp+"?text="+encodeURIComponent(msg);
+        window.open(url,"_blank");
+    });
 }
 </script>
 
