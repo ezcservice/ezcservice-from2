@@ -3,76 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loan Form Test</title>
+<title>Ezy Credit Loan Application</title>
+
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f2f4f7;}
-.container{max-width:480px;margin:auto;background:#fff;min-height:100vh;padding:15px;}
-h2{font-size:16px;margin-top:20px;padding-bottom:5px;border-bottom:2px solid #ddd;}
-label{font-size:13px;display:block;margin-top:10px;}
-input{width:100%;padding:10px;margin-top:5px;border-radius:6px;border:1px solid #ccc;font-size:14px;}
-button{width:100%;padding:12px;margin-top:20px;background:#0a7cff;color:#fff;border:none;border-radius:8px;font-size:16px;}
-#loading,#confirm{display:none;text-align:center;padding:40px 20px;}
-.loader{width:50px;height:50px;border:6px solid #eee;border-top:6px solid #0a7cff;border-radius:50%;margin:auto;animation:spin 1s linear infinite;}
-@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+body{
+    font-family: Arial, sans-serif;
+    background:#f2f4f7;
+    margin:0;
+}
+.container{
+    max-width:430px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+}
+h2{
+    text-align:center;
+    color:#0a3cff;
+}
+.section{
+    margin-top:25px;
+    font-weight:bold;
+    border-bottom:2px solid #eee;
+    padding-bottom:5px;
+}
+label{
+    display:block;
+    margin-top:12px;
+    font-size:14px;
+}
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+textarea{resize:none;}
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+.submit-btn{
+    background:#0a3cff;
+    color:white;
+}
+.whatsapp-btn{
+    background:#25D366;
+    color:white;
+}
+.lang-btn{
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    background:#f1f1f1;
+}
+.en{display:block;}
+.si{display:none;}
+
+.loader{
+    display:none;
+    text-align:center;
+    margin-top:30px;
+}
+.spinner{
+    width:50px;
+    height:50px;
+    border:5px solid #ccc;
+    border-top:5px solid #0a3cff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:auto;
+}
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+.message{
+    display:none;
+    text-align:center;
+    margin-top:25px;
+    font-weight:bold;
+}
 </style>
 </head>
-<body>
 
+<body>
 <div class="container">
 
-<form id="loanForm">
-<h2>Applicant Test | නම & NIC</h2>
-<label>Full Name / නම</label>
-<input id="fullname" required>
+<h2>Ezy Credit – Loan Application</h2>
 
-<label>NIC / හැදුනුම්පත් අංකය</label>
-<input id="nic" required>
-
-<button type="submit">Submit</button>
-</form>
-
-<div id="loading">
-  <div class="loader"></div>
-  <p>විස්තර යවමින් පවතී...</p>
+<!-- Language Toggle -->
+<div style="display:flex;gap:10px;">
+    <button class="lang-btn" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('si')">සිංහල</button>
 </div>
 
-<div id="confirm">
-  <p>
-    ඔබගේ විස්තර double check කර ගැනීමට  
-    WhatsApp හරහා යැවීමට සිදු වේ
-  </p>
-  <button onclick="sendWhatsApp()">Next</button>
+<form id="loanForm">
+
+<div class="section">1️⃣ Personal Information</div>
+
+<label><span class="en">First Name</span><span class="si">මුල් නම</span></label>
+<input id="fname" required>
+
+<label><span class="en">Last Name</span><span class="si">අවසාන නම</span></label>
+<input id="lname" required>
+
+<label><span class="en">Email</span><span class="si">ඊමේල් ලිපිනය</span></label>
+<input id="email">
+
+<label><span class="en">NIC Number</span><span class="si">ජාතික හැඳුනුම්පත් අංකය</span></label>
+<input id="nic" required>
+
+<label><span class="en">City</span><span class="si">නගරය</span></label>
+<input id="city">
+
+<label><span class="en">Period of Residence</span><span class="si">පදිංචි කාලය</span></label>
+<input id="residence">
+
+<label><span class="en">Date of Birth</span><span class="si">උපන් දිනය</span></label>
+<input type="date" id="dob">
+
+<label><span class="en">WhatsApp Number</span><span class="si">WhatsApp අංකය</span></label>
+<input id="appWhatsapp" required>
+
+<div class="section">2️⃣ Employment Details</div>
+
+<label><span class="en">Current Job</span><span class="si">දැනට කරන රැකියාව</span></label>
+<input id="job">
+
+<label><span class="en">Monthly Income</span><span class="si">මාසික ආදායම</span></label>
+<input id="income">
+
+<label><span class="en">Designation</span><span class="si">තනතුර</span></label>
+<input id="designation">
+
+<div class="section">3️⃣ Guarantor Details</div>
+
+<label><span class="en">First Guarantor Name</span><span class="si">පළමු ඇපකරුගේ නම</span></label>
+<input id="g1name">
+
+<label><span class="en">Phone Number</span><span class="si">දුරකථන අංකය</span></label>
+<input id="g1phone">
+
+<label><span class="en">Relationship</span><span class="si">ඔබගේ කවුද?</span></label>
+<input id="g1relation">
+
+<label><span class="en">Second Guarantor Name</span><span class="si">දෙවන ඇපකරුගේ නම</span></label>
+<input id="g2name">
+
+<label><span class="en">Phone Number</span><span class="si">දුරකථන අංකය</span></label>
+<input id="g2phone">
+
+<label><span class="en">Relationship</span><span class="si">ඔබගේ කවුද?</span></label>
+<input id="g2relation">
+
+<div class="section">4️⃣ Loan Details</div>
+
+<label><span class="en">Loan Amount</span><span class="si">ණය මුදල</span></label>
+<input id="loanAmount">
+
+<label><span class="en">Repayment Period</span><span class="si">ගෙවීම් කාලය</span></label>
+<select id="repayment">
+    <option>3 Months</option>
+    <option>6 Months</option>
+    <option>12 Months</option>
+</select>
+
+<label><span class="en">Purpose of Loan</span><span class="si">ණය ලබාගැනීමට හේතුව</span></label>
+<textarea id="purpose"></textarea>
+
+<label><span class="en">Previous Loan</span><span class="si">පෙර ණය ලබාගෙන තිබේද?</span></label>
+<select id="previousLoan">
+    <option>Yes</option>
+    <option>No</option>
+</select>
+
+<div class="section">5️⃣ Repayment Method</div>
+
+<label><span class="en">Online Payment Available?</span><span class="si">ඔන්ලයින් ගෙවීම් තිබේද?</span></label>
+<select id="onlinePay">
+    <option>Yes</option>
+    <option>No</option>
+</select>
+
+<label><span class="en">Nearest Bank</span><span class="si">ළඟම බැංකුව</span></label>
+<input id="bankNearby">
+
+<label><span class="en">Pay & Go Machine?</span><span class="si">Pay & Go මැෂින්?</span></label>
+<select id="paygo">
+    <option>Yes</option>
+    <option>No</option>
+</select>
+
+<div class="section">6️⃣ Bank Account Details</div>
+
+<label><span class="en">Bank Name</span><span class="si">බැංකුව</span></label>
+<input id="bankName">
+
+<label><span class="en">Branch</span><span class="si">ශාඛාව</span></label>
+<input id="branch">
+
+<label><span class="en">Account Number</span><span class="si">ගිණුම් අංකය</span></label>
+<input id="accountNo">
+
+<label><span class="en">Account Holder Name</span><span class="si">ගිණුම් හිමියා</span></label>
+<input id="accountHolder">
+
+<button class="submit-btn">Submit Application</button>
+</form>
+
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+    <p>Processing... Please wait</p>
+</div>
+
+<div class="message" id="message">
+    <p>ඔබගේ විස්තර සාර්ථකව ලබාගෙන ඇත</p>
+    <button class="whatsapp-btn" onclick="sendWhatsApp()">WhatsApp හරහා විස්තර යවන්න</button>
 </div>
 
 </div>
 
 <script>
-// Replace FORM_ID and ENTRY_IDs with your pre-filled Google Form IDs
-function sendToGoogleForm(){
-  let url = "https://docs.google.com/spreadsheets/d/1KxokgGIPc08l1g5qs0-e30W-lX-W8CCcc5rudt2KDu4/edit?usp=sharing" +
-    "entry.ENTRY_FULLNAME="+encodeURIComponent(fullname.value)+
-    "&entry.ENTRY_NIC="+encodeURIComponent(nic.value);
-
-  fetch(url,{mode:"no-cors"});
+function setLang(lang){
+    document.querySelectorAll('.en').forEach(e=>e.style.display=lang==='en'?'block':'none');
+    document.querySelectorAll('.si').forEach(e=>e.style.display=lang==='si'?'block':'none');
 }
 
-document.getElementById("loanForm").onsubmit=function(e){
-  e.preventDefault();
-  sendToGoogleForm();
+let msg="";
+loanForm.addEventListener("submit",function(e){
+    e.preventDefault();
 
-  loanForm.style.display="none";
-  loading.style.display="block";
+msg=`Ezy Credit Loan Application
+Name: ${fname.value} ${lname.value}
+NIC: ${nic.value}
+City: ${city.value}
+WhatsApp: ${appWhatsapp.value}
+Loan Amount: ${loanAmount.value}
+Repayment: ${repayment.value}`;
 
-  setTimeout(()=>{
-    loading.style.display="none";
-    confirm.style.display="block";
-  },3000);
-}
+loanForm.style.display="none";
+loader.style.display="block";
+
+setTimeout(()=>{
+    loader.style.display="none";
+    message.style.display="block";
+},8000);
+});
 
 function sendWhatsApp(){
-  let msg = "Loan Test\nName: "+fullname.value+"\nNIC: "+nic.value;
-  let wa="https://wa.me/94742089009?text="+encodeURIComponent(msg);
-  window.open(wa,"_blank");
+    window.open("https://wa.me/94778630027?text="+encodeURIComponent(msg));
 }
 </script>
 
