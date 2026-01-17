@@ -6,262 +6,199 @@
 <title>Ezy Credit Loan Application</title>
 
 <style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f2f4f7;
-    margin:0;
-}
-.container{
-    max-width:430px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-}
-h2{
-    text-align:center;
-    color:#0a3cff;
-}
-.section{
-    margin-top:25px;
-    font-weight:bold;
-    border-bottom:2px solid #eee;
-    padding-bottom:5px;
-}
-label{
-    display:block;
-    margin-top:12px;
-    font-size:14px;
-}
-input, textarea, select{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:8px;
-    border:1px solid #ccc;
+body{font-family:Arial;background:#f2f4f7;margin:0;}
+.container{max-width:430px;margin:auto;background:#fff;padding:20px;}
+h2{text-align:center;color:#0a3cff;}
+.section{margin-top:25px;font-weight:bold;border-bottom:2px solid #eee;padding-bottom:5px;}
+label{display:block;margin-top:12px;font-size:14px;}
+input,textarea,select{
+ width:100%;padding:10px;margin-top:5px;
+ border-radius:8px;border:1px solid #ccc;
 }
 textarea{resize:none;}
 button{
-    width:100%;
-    padding:14px;
-    margin-top:20px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-    cursor:pointer;
+ width:100%;padding:14px;margin-top:20px;
+ border:none;border-radius:10px;font-size:16px;
+ cursor:pointer;
 }
-.submit-btn{
-    background:#0a3cff;
-    color:white;
-}
-.whatsapp-btn{
-    background:#25D366;
-    color:white;
-}
-.lang-btn{
-    flex:1;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    background:#f1f1f1;
-}
-.en{display:block;}
-.si{display:none;}
+.submit-btn{background:#0a3cff;color:white;}
+.whatsapp-btn{background:#25D366;color:white;}
+.lang-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;}
+.en{display:none;} .si{display:block;}
 
-.loader{
-    display:none;
-    text-align:center;
-    margin-top:30px;
-}
+.loader{display:none;text-align:center;margin-top:30px;}
 .spinner{
-    width:50px;
-    height:50px;
-    border:5px solid #ccc;
-    border-top:5px solid #0a3cff;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    margin:auto;
+ width:50px;height:50px;border:5px solid #ccc;
+ border-top:5px solid #0a3cff;border-radius:50%;
+ animation:spin 1s linear infinite;margin:auto;
 }
-@keyframes spin{
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
-}
-.message{
-    display:none;
-    text-align:center;
-    margin-top:25px;
-    font-weight:bold;
-}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.message{display:none;text-align:center;margin-top:25px;font-weight:bold;}
 </style>
 </head>
 
 <body>
 <div class="container">
-
-<h2>Ezy Credit – Loan Application</h2>
-
-<!-- Language Toggle -->
-<div style="display:flex;gap:10px;">
-    <button class="lang-btn" onclick="setLang('en')">English</button>
-    <button class="lang-btn" onclick="setLang('si')">සිංහල</button>
-</div>
+<h2>Ezy Credit – ණය අයදුම් පත්‍රය</h2>
 
 <form id="loanForm">
 
-<div class="section">1️⃣ Personal Information</div>
+<div class="section">1️⃣ පුද්ගලික තොරතුරු</div>
 
-<label><span class="en">First Name</span><span class="si">මුල් නම</span></label>
-<input id="fname" required>
+<label>මුල් නම</label><input id="fname" required>
+<label>අවසාන නම</label><input id="lname" required>
+<label>ඊමේල්</label><input id="email">
+<label>ජාතික හැඳුනුම්පත් අංකය</label><input id="nic" required>
 
-<label><span class="en">Last Name</span><span class="si">අවසාන නම</span></label>
-<input id="lname" required>
-
-<label><span class="en">Email</span><span class="si">ඊමේල් ලිපිනය</span></label>
-<input id="email">
-
-<label><span class="en">NIC Number</span><span class="si">ජාතික හැඳුනුම්පත් අංකය</span></label>
-<input id="nic" required>
-
-<label><span class="en">City</span><span class="si">නගරය</span></label>
-<input id="city">
-
-<label><span class="en">Period of Residence</span><span class="si">පදිංචි කාලය</span></label>
-<input id="residence">
-
-<label><span class="en">Date of Birth</span><span class="si">උපන් දිනය</span></label>
-<input type="date" id="dob">
-
-<label><span class="en">WhatsApp Number</span><span class="si">WhatsApp අංකය</span></label>
-<input id="appWhatsapp" required>
-
-<div class="section">2️⃣ Employment Details</div>
-
-<label><span class="en">Current Job</span><span class="si">දැනට කරන රැකියාව</span></label>
-<input id="job">
-
-<label><span class="en">Monthly Income</span><span class="si">මාසික ආදායම</span></label>
-<input id="income">
-
-<label><span class="en">Designation</span><span class="si">තනතුර</span></label>
-<input id="designation">
-
-<div class="section">3️⃣ Guarantor Details</div>
-
-<label><span class="en">First Guarantor Name</span><span class="si">පළමු ඇපකරුගේ නම</span></label>
-<input id="g1name">
-
-<label><span class="en">Phone Number</span><span class="si">දුරකථන අංකය</span></label>
-<input id="g1phone">
-
-<label><span class="en">Relationship</span><span class="si">ඔබගේ කවුද?</span></label>
-<input id="g1relation">
-
-<label><span class="en">Second Guarantor Name</span><span class="si">දෙවන ඇපකරුගේ නම</span></label>
-<input id="g2name">
-
-<label><span class="en">Phone Number</span><span class="si">දුරකථන අංකය</span></label>
-<input id="g2phone">
-
-<label><span class="en">Relationship</span><span class="si">ඔබගේ කවුද?</span></label>
-<input id="g2relation">
-
-<div class="section">4️⃣ Loan Details</div>
-
-<label><span class="en">Loan Amount</span><span class="si">ණය මුදල</span></label>
-<input id="loanAmount">
-
-<label><span class="en">Repayment Period</span><span class="si">ගෙවීම් කාලය</span></label>
-<select id="repayment">
-    <option>3 Months</option>
-    <option>6 Months</option>
-    <option>12 Months</option>
+<label>නගරය</label>
+<select id="city">
+<option>Colombo</option><option>Gampaha</option><option>Kandy</option>
+<option>Kurunegala</option><option>Other</option>
 </select>
 
-<label><span class="en">Purpose of Loan</span><span class="si">ණය ලබාගැනීමට හේතුව</span></label>
+<label>පදිංචි කාලය</label>
+<select id="residence">
+<option>Less than 1 year</option>
+<option>1 – 3 Years</option>
+<option>More than 3 Years</option>
+</select>
+
+<label>උපන් දිනය</label><input type="date" id="dob">
+<label>WhatsApp අංකය</label><input id="appWhatsapp" required>
+
+<div class="section">2️⃣ රැකියා තොරතුරු</div>
+
+<label>රැකියා වර්ගය</label>
+<select id="job">
+<option>Government</option>
+<option>Private</option>
+<option>Self Employed</option>
+<option>Business</option>
+</select>
+
+<label>මාසික ආදායම</label>
+<select id="income">
+<option>Below 50,000</option>
+<option>50,000 – 100,000</option>
+<option>Above 100,000</option>
+</select>
+
+<label>තනතුර</label><input id="designation">
+
+<div class="section">3️⃣ ඇපකරුවන්ගේ තොරතුරු</div>
+
+<label>පළමු ඇපකරුගේ නම</label><input id="g1name">
+<label>දුරකථන අංකය</label><input id="g1phone">
+<label>සබඳතාවය</label>
+<select id="g1relation">
+<option>Father</option><option>Mother</option>
+<option>Brother</option><option>Friend</option>
+</select>
+
+<label>දෙවන ඇපකරුගේ නම</label><input id="g2name">
+<label>දුරකථන අංකය</label><input id="g2phone">
+<label>සබඳතාවය</label>
+<select id="g2relation">
+<option>Father</option><option>Mother</option>
+<option>Brother</option><option>Friend</option>
+</select>
+
+<div class="section">4️⃣ ණය විස්තර</div>
+
+<label>ලබා ගන්නා මුදල</label>
+<select id="loanAmount">
+<option>50,000</option><option>100,000</option>
+<option>200,000</option><option>Other</option>
+</select>
+
+<label>ගෙවීම් කාලය</label>
+<select id="repayment">
+<option>3 Months</option>
+<option>6 Months</option>
+<option>12 Months</option>
+</select>
+
+<label>මුදල් ලබා ගැනීමට හේතුව</label>
 <textarea id="purpose"></textarea>
 
-<label><span class="en">Previous Loan</span><span class="si">පෙර ණය ලබාගෙන තිබේද?</span></label>
+<label>මීට පෙර ණය ලබාගෙන තිබේද?</label>
 <select id="previousLoan">
-    <option>Yes</option>
-    <option>No</option>
+<option>Yes</option><option>No</option>
 </select>
 
-<div class="section">5️⃣ Repayment Method</div>
+<div class="section">5️⃣ ගෙවීම් ක්‍රම</div>
 
-<label><span class="en">Online Payment Available?</span><span class="si">ඔන්ලයින් ගෙවීම් තිබේද?</span></label>
-<select id="onlinePay">
-    <option>Yes</option>
-    <option>No</option>
-</select>
+<label>Online ගෙවීම් තිබේද?</label>
+<select id="onlinePay"><option>Yes</option><option>No</option></select>
 
-<label><span class="en">Nearest Bank</span><span class="si">ළඟම බැංකුව</span></label>
-<input id="bankNearby">
+<label>ළඟම බැංකුව</label><input id="bankNearby">
 
-<label><span class="en">Pay & Go Machine?</span><span class="si">Pay & Go මැෂින්?</span></label>
-<select id="paygo">
-    <option>Yes</option>
-    <option>No</option>
-</select>
+<label>Pay & Go මැෂින් තිබේද?</label>
+<select id="paygo"><option>Yes</option><option>No</option></select>
 
-<div class="section">6️⃣ Bank Account Details</div>
+<div class="section">6️⃣ ගිණුම් තොරතුරු</div>
 
-<label><span class="en">Bank Name</span><span class="si">බැංකුව</span></label>
-<input id="bankName">
+<label>බැංකුව</label><input id="bankName">
+<label>ශාඛාව</label><input id="branch">
+<label>ගිණුම් අංකය</label><input id="accountNo">
+<label>ගිණුම් හිමියාගේ නම</label><input id="accountHolder">
 
-<label><span class="en">Branch</span><span class="si">ශාඛාව</span></label>
-<input id="branch">
-
-<label><span class="en">Account Number</span><span class="si">ගිණුම් අංකය</span></label>
-<input id="accountNo">
-
-<label><span class="en">Account Holder Name</span><span class="si">ගිණුම් හිමියා</span></label>
-<input id="accountHolder">
-
-<button class="submit-btn">Submit Application</button>
+<button class="submit-btn">Submit</button>
 </form>
 
 <div class="loader" id="loader">
-    <div class="spinner"></div>
-    <p>Processing... Please wait</p>
+<div class="spinner"></div>
+<p>කරුණාකර රැඳී සිටින්න...</p>
 </div>
 
 <div class="message" id="message">
-    <p>ඔබගේ විස්තර සාර්ථකව ලබාගෙන ඇත</p>
-    <button class="whatsapp-btn" onclick="sendWhatsApp()">WhatsApp හරහා විස්තර යවන්න</button>
+<p>ඔබගේ විස්තර සාර්ථකව ලබාගෙන ඇත</p>
+<button class="whatsapp-btn" onclick="sendWhatsApp()">WhatsApp හරහා යවන්න</button>
 </div>
-
 </div>
 
 <script>
-function setLang(lang){
-    document.querySelectorAll('.en').forEach(e=>e.style.display=lang==='en'?'block':'none');
-    document.querySelectorAll('.si').forEach(e=>e.style.display=lang==='si'?'block':'none');
-}
-
 let msg="";
-loanForm.addEventListener("submit",function(e){
-    e.preventDefault();
+loanForm.addEventListener("submit",e=>{
+e.preventDefault();
 
-msg=`Ezy Credit Loan Application
-Name: ${fname.value} ${lname.value}
-NIC: ${nic.value}
-City: ${city.value}
-WhatsApp: ${appWhatsapp.value}
-Loan Amount: ${loanAmount.value}
-Repayment: ${repayment.value}`;
+msg=`📌 *Ezy Credit ණය අයදුම් පත්‍රය*
+
+👤 නම: ${fname.value} ${lname.value}
+🆔 NIC: ${nic.value}
+🏙 නගරය: ${city.value}
+📱 WhatsApp: ${appWhatsapp.value}
+🎂 උපන් දිනය: ${dob.value}
+
+💼 රැකියාව: ${job.value}
+💰 ආදායම: ${income.value}
+📌 තනතුර: ${designation.value}
+
+👥 ඇපකරු 1: ${g1name.value} (${g1phone.value}) - ${g1relation.value}
+👥 ඇපකරු 2: ${g2name.value} (${g2phone.value}) - ${g2relation.value}
+
+💵 ණය මුදල: ${loanAmount.value}
+⏳ කාලය: ${repayment.value}
+📝 හේතුව: ${purpose.value}
+🔁 පෙර ණය: ${previousLoan.value}
+
+🏦 බැංකුව: ${bankName.value}
+🏧 ශාඛාව: ${branch.value}
+🔢 ගිණුම් අංකය: ${accountNo.value}
+👤 ගිණුම් හිමියා: ${accountHolder.value}`;
 
 loanForm.style.display="none";
 loader.style.display="block";
 
 setTimeout(()=>{
-    loader.style.display="none";
-    message.style.display="block";
+ loader.style.display="none";
+ message.style.display="block";
 },8000);
 });
 
 function sendWhatsApp(){
-    window.open("https://wa.me/94778630027?text="+encodeURIComponent(msg));
+ window.open("https://wa.me/94778630027?text="+encodeURIComponent(msg));
 }
 </script>
-
 </body>
 </html>
