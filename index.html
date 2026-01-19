@@ -24,7 +24,9 @@ button{
 .submit-btn{background:#0a3cff;color:white;}
 .whatsapp-btn{background:#25D366;color:white;}
 .lang-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #ccc;}
-.en{display:none;} .si{display:block;}
+
+.en{display:none;}
+.si{display:block;}
 
 .loader{display:none;text-align:center;margin-top:30px;}
 .spinner{
@@ -41,34 +43,37 @@ button{
 <div class="container">
 <h2>Ezy Credit – ණය අයදුම් පත්‍රය</h2>
 
+<!-- Language Toggle -->
+<div style="display:flex;gap:10px;">
+<button class="lang-btn" onclick="setLang('si')">සිංහල</button>
+<button class="lang-btn" onclick="setLang('en')">English</button>
+</div>
+
 <form id="loanForm">
 
 <div class="section">1️⃣ පුද්ගලික තොරතුරු</div>
 
-<label>මුල් නම</label><input id="fname" required>
-<label>අවසාන නම</label><input id="lname" required>
-<label>ඊමේල්</label><input id="email">
-<label>ජාතික හැඳුනුම්පත් අංකය</label><input id="nic" required>
+<label>මුල් නම / First Name</label><input id="fname" required>
+<label>අවසාන නම / Last Name</label><input id="lname" required>
+<label>ඊමේල් / Email</label><input id="email">
+<label>ජාතික හැඳුනුම්පත් අංකය / NIC</label><input id="nic" required>
 
-<label>නගරය</label>
-<select id="city">
-<option>Colombo</option><option>Gampaha</option><option>Kandy</option>
-<option>Kurunegala</option><option>Other</option>
-</select>
+<label>නගරය / City</label>
+<input id="city" placeholder="Type your city">
 
-<label>පදිංචි කාලය</label>
+<label>පදිංචි කාලය / Residence Period</label>
 <select id="residence">
 <option>Less than 1 year</option>
 <option>1 – 3 Years</option>
 <option>More than 3 Years</option>
 </select>
 
-<label>උපන් දිනය</label><input type="date" id="dob">
+<label>උපන් දිනය / Date of Birth</label><input type="date" id="dob">
 <label>WhatsApp අංකය</label><input id="appWhatsapp" required>
 
 <div class="section">2️⃣ රැකියා තොරතුරු</div>
 
-<label>රැකියා වර්ගය</label>
+<label>රැකියා වර්ගය / Job Type</label>
 <select id="job">
 <option>Government</option>
 <option>Private</option>
@@ -76,14 +81,14 @@ button{
 <option>Business</option>
 </select>
 
-<label>මාසික ආදායම</label>
+<label>මාසික ආදායම / Monthly Income</label>
 <select id="income">
 <option>Below 50,000</option>
 <option>50,000 – 100,000</option>
 <option>Above 100,000</option>
 </select>
 
-<label>තනතුර</label><input id="designation">
+<label>තනතුර / Designation</label><input id="designation">
 
 <div class="section">3️⃣ ඇපකරුවන්ගේ තොරතුරු</div>
 
@@ -92,7 +97,8 @@ button{
 <label>සබඳතාවය</label>
 <select id="g1relation">
 <option>Father</option><option>Mother</option>
-<option>Brother</option><option>Friend</option>
+<option>Brother</option><option>Sister</option>
+<option>Friend</option>
 </select>
 
 <label>දෙවන ඇපකරුගේ නම</label><input id="g2name">
@@ -100,22 +106,23 @@ button{
 <label>සබඳතාවය</label>
 <select id="g2relation">
 <option>Father</option><option>Mother</option>
-<option>Brother</option><option>Friend</option>
+<option>Brother</option><option>Sister</option>
+<option>Friend</option>
 </select>
 
 <div class="section">4️⃣ ණය විස්තර</div>
 
-<label>ලබා ගන්නා මුදල</label>
-<select id="loanAmount">
-<option>50,000</option><option>100,000</option>
-<option>200,000</option><option>Other</option>
-</select>
+<label>ලබා ගන්නා මුදල</label><input id="loanAmount">
 
-<label>ගෙවීම් කාලය</label>
+<label>ගෙවීම් කාලය (Months)</label>
 <select id="repayment">
-<option>3 Months</option>
 <option>6 Months</option>
+<option>9 Months</option>
 <option>12 Months</option>
+<option>15 Months</option>
+<option>18 Months</option>
+<option>21 Months</option>
+<option>24 Months</option>
 </select>
 
 <label>මුදල් ලබා ගැනීමට හේතුව</label>
@@ -131,15 +138,23 @@ button{
 <label>Online ගෙවීම් තිබේද?</label>
 <select id="onlinePay"><option>Yes</option><option>No</option></select>
 
-<label>ළඟම බැංකුව</label><input id="bankNearby">
-
 <label>Pay & Go මැෂින් තිබේද?</label>
 <select id="paygo"><option>Yes</option><option>No</option></select>
 
 <div class="section">6️⃣ ගිණුම් තොරතුරු</div>
 
-<label>බැංකුව</label><input id="bankName">
-<label>ශාඛාව</label><input id="branch">
+<label>බැංකුව / Bank</label>
+<select id="bankName">
+<option>Commercial Bank</option>
+<option>Sampath Bank</option>
+<option>Peoples Bank</option>
+<option>NDB Bank</option>
+<option>BOC Bank</option>
+<option>NSB Bank</option>
+<option>Cargills Bank</option>
+</select>
+
+<label>ශාඛාව / Branch</label><input id="branch">
 <label>ගිණුම් අංකය</label><input id="accountNo">
 <label>ගිණුම් හිමියාගේ නම</label><input id="accountHolder">
 
@@ -158,6 +173,10 @@ button{
 </div>
 
 <script>
+function setLang(lang){
+ alert(lang==="si" ? "සිංහල භාෂාව සක්‍රියයි" : "English language active");
+}
+
 let msg="";
 loanForm.addEventListener("submit",e=>{
 e.preventDefault();
@@ -178,7 +197,7 @@ msg=`📌 *Ezy Credit ණය අයදුම් පත්‍රය*
 👥 ඇපකරු 2: ${g2name.value} (${g2phone.value}) - ${g2relation.value}
 
 💵 ණය මුදල: ${loanAmount.value}
-⏳ කාලය: ${repayment.value}
+⏳ ගෙවීම් කාලය: ${repayment.value}
 📝 හේතුව: ${purpose.value}
 🔁 පෙර ණය: ${previousLoan.value}
 
